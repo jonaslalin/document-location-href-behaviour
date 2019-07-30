@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Document.location.href Behaviour</title>
+
+  <style>
+    .delay-control {
+      margin-bottom: 1em;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    #example-script-output {
+      background: lightgreen;
+      font-weight: bold;
+      width: 300px;
+      margin-top: 3em;
+      margin-bottom: 1em;
+    }
+  </style>
+
+  <script>
+    function delayControls() {
+      return {
+        scriptDelay: document.getElementById('script-delay'),
+        imageDelay: document.getElementById('image-delay'),
+        redirectDelay: document.getElementById('redirect-delay')
+      };
+    }
+
+    function randomInt() {
+      // between 0 and 5000 inclusive, in 100 increments
+      return Math.floor(Math.random() * 51) * 100;
+    }
+
+    function onRandomizeDelays() {
+      var controls = delayControls();
+
+      controls.scriptDelay.value = randomInt();
+      controls.imageDelay.value = randomInt();
+      controls.redirectDelay.value = randomInt();
+    }
+
+    function onRedirect() {
+      var controls = delayControls();
+
+      var newScript = document.createElement('script');
+      newScript.src = 'goodbye.js?delay=' + controls.scriptDelay.value;
+
+      var exampleScriptParent = document.getElementById('example-script-parent');
+      exampleScriptParent.innerHTML = '';
+      exampleScriptParent.appendChild(newScript);
+
+      var exampleImage = document.getElementById('example-image');
+      exampleImage.src = 'blue.gif?delay=' + controls.imageDelay.value;
+
+      document.location.href = '/redirect?delay=' + controls.redirectDelay.value;
+    }
+  </script>
+</head>
+
+<body>
+  <h1>Document.location.href Behaviour</h1>
+
+  <div class="delay-control">
+    <label for="script-delay">Script Delay</label>
+    <br>
+    <input id="script-delay" type="number" value="1000">
+  </div>
+  <div class="delay-control">
+    <label for="image-delay">Image Delay</label>
+    <br>
+    <input id="image-delay" type="number" value="2000">
+  </div>
+  <div class="delay-control">
+    <label for="redirect-delay">Redirect Delay</label>
+    <br>
+    <input id="redirect-delay" type="number" value="3000">
+  </div>
+
+  <button type="button" onclick="onRandomizeDelays()">Randomize delays</button>
+  <button type="button" onclick="onRedirect()">Redirect</button>
+
+  <div id="example-script-output"></div>
+  <div id="example-script-parent">
+    <script src="hello.js"></script>
+  </div>
+  <img id="example-image" src="red.gif">
+</body>
+
+</html>

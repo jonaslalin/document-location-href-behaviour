@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Redirect Landing Page</title>
+
+  <style>
+    #go-back-border {
+      width: 290px;
+      height: 190px;
+      border: 5px dashed red;
+      position: relative;
+    }
+
+    #go-back {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+
+  <script>
+    function onGoBack() {
+      document.location.href = '/';
+    }
+  </script>
+</head>
+
+<body>
+  <h1>Redirect Landing Page</h1>
+
+  <div id="go-back-border">
+    <button id="go-back" type="button" onclick="onGoBack()">Go back</button>
+  </div>
+</body>
+
+</html>
